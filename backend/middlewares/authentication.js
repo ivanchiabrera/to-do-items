@@ -5,6 +5,12 @@ exports.verifyToken = function(req, res, next) {
     var token = req.header('token');
     tokenDecoded = jwt.decode(token);
 
+    if (!token) {
+        return res.status(500).json({
+            verificado: false
+        });
+    }
+
     User.findById(tokenDecoded.id)
         .exec(
             (err, user) => {
