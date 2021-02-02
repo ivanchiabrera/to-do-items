@@ -1,14 +1,14 @@
 var express = require('express');
-const task = require('../models/task');
-const { translateAliases } = require('../models/task');
 var app = express();
 var Task = require('../models/task');
+var mdAutentificacion = require('../middlewares/authentication');
+
 
 // ===========================
 // NEW
 // ===========================
 
-app.post('/new', (req, res) => {
+app.post('/new', mdAutentificacion.verifyToken, (req, res) => {
 
     var body = req.body;
 
@@ -41,7 +41,7 @@ app.post('/new', (req, res) => {
 // UPDATE
 // ===========================
 
-app.put('/update/:id', (req, res) => {
+app.put('/update/:id', mdAutentificacion.verifyToken, (req, res) => {
     var idTask = req.params.id;
     var body = req.body;
 
@@ -87,7 +87,7 @@ app.put('/update/:id', (req, res) => {
 // ALL
 // ===========================
 
-app.get('/all/:id', (req, res, next) => {
+app.get('/all/:id', mdAutentificacion.verifyToken, (req, res, next) => {
     var idUser = req.params.id;
 
     Task.find({ user_id: idUser })
@@ -111,7 +111,7 @@ app.get('/all/:id', (req, res, next) => {
 // DELETE
 // ===========================
 
-app.delete('/delete/:id', (req, res) => {
+app.delete('/delete/:id', mdAutentificacion.verifyToken, (req, res) => {
     var idTask = req.params.id;
 
     Task.findByIdAndRemove(idTask, (err, taskDeleted) => {
