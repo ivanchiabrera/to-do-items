@@ -19,7 +19,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Import routes
-var testRoutes = require('./routes/test');
+var userRoutes = require('./routes/user');
+var taskRoutes = require('./routes/task');
 
 //Connection bd
 mongoose.connection.openUri(process.env.URL_MONGO, { useNewUrlParser: true }, (err, res) => {
@@ -32,7 +33,8 @@ mongoose.connection.openUri(process.env.URL_MONGO, { useNewUrlParser: true }, (e
 app.use(express.static(__dirname + '/dist'));
 
 // routes
-app.use('/api/test', testRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/task', taskRoutes);
 
 //
 app.get('/*', function(req, res) {
