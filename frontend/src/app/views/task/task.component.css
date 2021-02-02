@@ -1,0 +1,15 @@
+.container-fluid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    height: 100vh;
+}
+
+.card {
+    background-color: rgba(245, 245, 245, 0.5);
+    border-radius: 70px;
+    padding: 25px;
+}
