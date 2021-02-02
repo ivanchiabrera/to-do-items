@@ -1,4 +1,4 @@
-.container-fluid {
+.center {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -8,8 +8,34 @@
     height: 100vh;
 }
 
+.end {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: unset;
+    align-content: flex-end;
+}
+
+.cursorPointer {
+    cursor: pointer;
+}
+
 .card {
     background-color: rgba(245, 245, 245, 0.5);
     border-radius: 70px;
     padding: 25px;
+}
+
+.shadow {
+    background-color: rgba(26, 21, 21, 0.3);
+}
+
+.line-through {
+    text-decoration: line-through
+}
+
+.input {
+    border-radius: 20px !important;
+    background-color: #eee;
 }

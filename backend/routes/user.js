@@ -16,6 +16,13 @@ app.post('/register', (req, res) => {
     User.findOne({ name: body.name.toLowerCase() })
         .exec(
             (err, user) => {
+
+                if (body.name == '' || body.password == '') {
+                    return res.status(500).json({
+                        mensaje: 'Error',
+                        erros: err
+                    })
+                }
                 if (err) {
                     return res.status(500).json({
                         mensaje: 'Error',
@@ -79,30 +86,31 @@ app.post('/login', function(req, res, next) {
 
                 if (err) {
                     return res.status(500).json({
-                        mensaje: 'Error al logear usuario',
+                        mensaje: 'Error',
                         erros: err
                     })
                 }
 
                 if (!user) {
-                    return res.status(500).json({
-                        verificado: false
+                    return res.status(401).json({
+                        verified: false
                     });
                 }
 
                 bcrypt.compare(password, user.password).then(function(result) {
                     if (result === true) {
                         var payload = {
-                            id: user._id
+                            id: user._id,
+                            name: name
                         };
                         var token = jwt.sign(payload, process.env.JWT_TOKEN, { expiresIn: 2419200 }); //604800 una semana
                         res.status(200).json({
-                            verificado: true,
+                            verified: true,
                             token: token
                         });
                     } else {
-                        res.status(500).json({
-                            verificado: false
+                        res.status(401).json({
+                            verified: false
                         });
                     }
                 });

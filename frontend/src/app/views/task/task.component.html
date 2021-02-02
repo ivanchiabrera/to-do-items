@@ -1,24 +1,51 @@
-<div class="container-fluid bg-success">
-    <div class="container">
+<div class="container-fluid bg-success end">
+
+    <h5 class="cursorPointer" (click)="logout()">¡Hello {{name}}!<b> Logout <i class="fas fa-sign-out-alt"></i></b></h5>
+</div>
+<div class="container-fluid center bg-success ">
+    <div class="container ">
         <div class="row text-center m-auto">
-            <div class="col-12 card">
+            <div class="col-12 card shadowContainer">
                 <div>
                     <div class="mb-3">
-                        <h1><b>To do list</b></h1>
+                        <h1><b>To do list ({{numberTasks}})</b></h1>
                     </div>
                     <div class="m-auto text-center">
-                        <form (ngSubmit)="addTask()" #form="ngForm" class="text-center">
-                            <div class="input-group mb-3 col-sm-4 m-auto text-center">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-tasks"></i></span>
-                                </div>
-                                <input type="text" class="form-control" placeholder="Add task" aria-label="task" aria-describedby="basic-addon1">
+                        <form (ngSubmit)="addTask(form)" #form="ngForm" class="text-center">
+                            <div class="input-group mb-3 col-sm-12 col-6 cold-md-6 col-lg-6 col-xl-6 m-auto text-center">
+                                <input type="text" class="form-control input" placeholder="Add task" aria-label="task" aria-describedby="basic-addon1" autocomplete="off" name="description" required ngModel>
                                 <button type="submit" class="btn btn-primary ml-3"><i class="fas fa-plus"></i></button>
                             </div>
                         </form>
+                    </div>
+                    <div class="m-auto text-center">
+                        <div *ngFor="let task of tasks;index as i">
+                            <div class="shadow m-2">
+                                <i class="fas fa-pen mr-2 cursorPointer" style="color:blue" (click)="openModal(modalEdit,task,i)"></i>
+                                <i class="fas fa-trash-alt mr-2 cursorPointer" style="color:red" (click)="delete(task,i)"></i>
+                                <span style="font-size: 20px;" [ngClass]="returnClass(task.done)"><b>{{task.description | uppercase }}</b></span>
+                                <i *ngIf="!task.done" class="fas fa-check ml-2 cursorPointer" style="color:green" (click)="check(task,i)"></i>
+                                <i *ngIf="task.done" class="fas fa-undo-alt ml-2 cursorPointer" style="color:yellow" (click)="check(task,i)"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<ng-template #modalEdit>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Edit description task</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form (ngSubmit)="updateTask(form)" #form="ngForm" class="text-center">
+            <input type="text" class="form-control" [ngModel]="taskEdit?.description" autocomplete="off" name="description" required ngModel>
+            <button type="submit" class="btn btn-primary mt-2" (click)="modalRef.hide()">Update</button>
+        </form>
+    </div>
+</ng-template>

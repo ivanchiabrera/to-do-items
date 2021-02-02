@@ -1,4 +1,4 @@
-.container-fluid {
+.center {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -6,6 +6,19 @@
     align-items: center;
     align-content: center;
     height: 100vh;
+}
+
+.end {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: unset;
+    align-content: flex-end;
+}
+
+.cursorPointer {
+    cursor: pointer;
 }
 
 .card {

@@ -11,10 +11,10 @@ var mdAutentificacion = require('../middlewares/authentication');
 app.post('/new', mdAutentificacion.verifyToken, (req, res) => {
 
     var body = req.body;
-
-    if (body.description == "" || body.done == "" || body.user_id == "" || !body.description || !body.done || !body.user_id) {
+    console.log(body.description, body.done, body.user_id)
+    if (body.description == "" || body.user_id == "" || !body.description || !body.user_id) {
         return res.status(500).json({
-            mensaje: 'Error saving task'
+            mensaje: 'Error saving task aaa'
         })
     }
 
@@ -45,7 +45,7 @@ app.put('/update/:id', mdAutentificacion.verifyToken, (req, res) => {
     var idTask = req.params.id;
     var body = req.body;
 
-    if (body.description == "" || body.done == "" || !body.description || !body.done) {
+    if (body.description == "" || !body.description) {
         return res.status(500).json({
             mensaje: 'Error updating task'
         })

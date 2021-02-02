@@ -4,9 +4,11 @@ import { map } from "rxjs/operators";
 import { environment } from '../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'any'
 })
 export class TaskService {
+ 
+  constructor(public http: HttpClient) { }
 
   url = environment.apiUrl;
   token = localStorage.getItem("token");
@@ -15,14 +17,12 @@ export class TaskService {
       token: this.token
     }),
   };
-
-  constructor(public http: HttpClient) { }
-
+  
   // ======================================================
-  new(idUser, task) {
+  new(idUser, description,done) {
     return this.http.post(`${this.url}task/new`, {
-      description: task.description,
-      done: task.done,
+      description: description,
+      done: done,
       user_id: idUser,
     },
       this.headers
@@ -34,12 +34,12 @@ export class TaskService {
   }
 
   // ======================================================
-  update(idTask, task) {
+  update(idTask, description,done) {
     return this.http
       .put(`${this.url}task/update/${idTask}`,
         {
-          description: task.description,
-          done: task.done,
+          description: description,
+          done: done,
         },
         this.headers
       )
