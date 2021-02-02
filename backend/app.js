@@ -1,6 +1,10 @@
 // Requires
 var express = require('express');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+
+//Variables de entorno
+require('dotenv').config();
 
 var app = express();
 // Cors
@@ -17,9 +21,23 @@ app.use(bodyParser.json());
 // Import routes
 var testRoutes = require('./routes/test');
 
-// Rutas
+//Connection bd
+mongoose.connection.openUri(process.env.URL_MONGO, { useNewUrlParser: true }, (err, res) => {
+    if (err) throw err;
+    console.log('Base de datos online');
+
+});
+
+//statics routes
+app.use(express.static(__dirname + '/dist'));
+
+// routes
 app.use('/api/test', testRoutes);
 
+//
+app.get('/*', function(req, res) {
+    res.sendFile(__dirname + '/dist/index.html');
+});
 
 
 
