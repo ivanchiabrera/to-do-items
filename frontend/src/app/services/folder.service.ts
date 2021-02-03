@@ -6,8 +6,8 @@ import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'any'
 })
-export class TaskService {
- 
+export class FolderService {
+
   constructor(public http: HttpClient) { }
 
   url = environment.apiUrl;
@@ -19,11 +19,10 @@ export class TaskService {
   };
   
   // ======================================================
-  new(idFolder, description,done) {
-    return this.http.post(`${this.url}task/new`, {
+  new(idUser, description,) {
+    return this.http.post(`${this.url}folder/new`, {
       description: description,
-      done: done,
-      folder_id: idFolder,
+      user_id: idUser,
     },
       this.headers
     ).pipe(
@@ -34,25 +33,8 @@ export class TaskService {
   }
 
   // ======================================================
-  update(idTask, description,done) {
-    return this.http
-      .put(`${this.url}task/update/${idTask}`,
-        {
-          description: description,
-          done: done,
-        },
-        this.headers
-      )
-      .pipe(
-        map((data: any) => {
-          return data;
-        })
-      );
-  }
-
-  // ======================================================
-  all(idFolder) {
-    return this.http.get(`${this.url}task/all/${idFolder}`,
+  all(idUser) {
+    return this.http.get(`${this.url}folder/all/${idUser}`,
       this.headers
     ).pipe(
       map((data: any) => {
@@ -62,9 +44,9 @@ export class TaskService {
   }
 
   // ======================================================
-  delete(idTask) {
+  delete(idFolder) {
     return this.http
-      .delete(`${this.url}task/delete/${idTask}`,
+      .delete(`${this.url}folder/delete/${idFolder}`,
         this.headers
       )
       .pipe(
