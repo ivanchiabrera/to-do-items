@@ -31,16 +31,12 @@
     background-color: rgba(26, 21, 21, 0.3);
 }
 
-.line-through {
-    text-decoration: line-through
+a {
+    text-decoration: none;
+    color: black;
 }
 
 .input {
     border-radius: 20px !important;
     background-color: #eee;
-}
-
-a {
-    text-decoration: none;
-    color: black;
 }

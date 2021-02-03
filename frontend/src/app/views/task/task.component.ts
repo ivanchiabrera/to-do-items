@@ -1,8 +1,9 @@
-import { Component, OnInit,TemplateRef  } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { TaskService } from '../../services/task.service';
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-task',
@@ -13,37 +14,43 @@ export class TaskComponent implements OnInit {
 
   modalRef: BsModalRef;
 
-  constructor(private userService: UserService, private taskService: TaskService,private modalService: BsModalService) { }
+  constructor(private userService: UserService, private taskService: TaskService, private modalService: BsModalService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getTasks();
+    this.activatedRoute.params.subscribe(
+      (params: Params) => {
+        if (params.id !== undefined) {
+          this.getTasks(params.id);
+          this.idFolder=params.id;
+        }
+      }
+    );
   }
-  
-  jwtHelper = new JwtHelperService();
-  token=localStorage.getItem("token");
-  idUser=this.jwtHelper.decodeToken(this.token).id;
-  name=this.jwtHelper.decodeToken(this.token).name;
-  tasks=[];
-  numberTasks=0;
-  taskEdit:any;
-  indexTaskEdit:any;
 
-  getTasks(){
-    this.taskService.all(this.idUser).subscribe(
-      (data)=>{
-        this.tasks=data.tasks;
-        this.numberTasks=data.total;
+  jwtHelper = new JwtHelperService();
+  token = localStorage.getItem("token");
+  idUser = this.jwtHelper.decodeToken(this.token).id;
+  name = this.jwtHelper.decodeToken(this.token).name;
+  tasks = [];
+  numberTasks = 0;
+  taskEdit: any;
+  indexTaskEdit: any;
+  idFolder:any;
+
+  getTasks(id) {
+    this.taskService.all(id).subscribe(
+      (data) => {
+        this.tasks = data.tasks;
+        this.numberTasks = data.total;
       }
     )
   }
 
   addTask(form) {
-    console.log(form.value.description);
-    console.log(this.idUser);
-    this.taskService.new(this.idUser,form.value.description,false).subscribe(
-      (data)=>{
+    this.taskService.new(this.idFolder, form.value.description, false).subscribe(
+      (data) => {
         this.tasks.push(data.task);
-        this.numberTasks+=1;
+        this.numberTasks += 1;
         form.reset();
       }
     )
@@ -53,40 +60,40 @@ export class TaskComponent implements OnInit {
     this.userService.unLogin();
   }
 
-  returnClass(done){
-    if(done==true){
+  returnClass(done) {
+    if (done == true) {
       return 'line-through'
     }
   }
 
-  check(task,index){
-    this.taskService.update(task._id,task.description,!task.done).subscribe(
-      (data)=>{
-        this.tasks[index]=data.taskSaved;
+  check(task, index) {
+    this.taskService.update(task._id, task.description, !task.done).subscribe(
+      (data) => {
+        this.tasks[index] = data.taskSaved;
       }
     )
   }
 
-  delete(task,index){
+  delete(task, index) {
     this.taskService.delete(task._id).subscribe(
-      (data)=>{
-        this.tasks.splice(index,1);
-        this.numberTasks-=1;
+      (data) => {
+        this.tasks.splice(index, 1);
+        this.numberTasks -= 1;
       }
     )
   }
 
-  openModal(template: TemplateRef<any>,task,index) {
+  openModal(template: TemplateRef<any>, task, index) {
     this.modalRef = this.modalService.show(template);
-    this.indexTaskEdit=index;
-    this.taskEdit=task;
+    this.indexTaskEdit = index;
+    this.taskEdit = task;
   }
 
 
-  updateTask(form){
-    this.taskService.update(this.taskEdit._id,form.value.description,this.taskEdit.done).subscribe(
-      (data)=>{
-        this.tasks[this.indexTaskEdit]=data.taskSaved;
+  updateTask(form) {
+    this.taskService.update(this.taskEdit._id, form.value.description, this.taskEdit.done).subscribe(
+      (data) => {
+        this.tasks[this.indexTaskEdit] = data.taskSaved;
       }
     )
   }

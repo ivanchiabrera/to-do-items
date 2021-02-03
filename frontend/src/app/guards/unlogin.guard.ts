@@ -14,7 +14,7 @@ export class UnLoginGuard implements CanActivate {
 
     canActivate(): boolean {
         if (this.userService.isAuthenticated()) {
-            this.router.navigate(['/task']);
+            this.router.navigate(['/folder']);
 
             return false;
         }

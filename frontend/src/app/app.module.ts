@@ -10,13 +10,15 @@ import { RegisterComponent } from './views/register/register.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './views/login/login.component';
 import { TaskComponent } from './views/task/task.component';
+import { FolderComponent } from './views/folder/folder.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    TaskComponent
+    TaskComponent,
+    FolderComponent
   ],
   imports: [
     BrowserModule,

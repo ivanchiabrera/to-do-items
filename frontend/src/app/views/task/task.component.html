@@ -1,18 +1,19 @@
-<div class="container-fluid bg-success end">
-
+<div class="container-fluid end" style="background-color:#fd79a8">
     <h5 class="cursorPointer" (click)="logout()">¡Hello {{name}}!<b> Logout <i class="fas fa-sign-out-alt"></i></b></h5>
 </div>
-<div class="container-fluid center bg-success ">
+<div class="container-fluid center" style="background-color:#fd79a8">
     <div class="container ">
         <div class="row text-center m-auto">
             <div class="col-12 card shadowContainer">
                 <div>
+                    <div class="float-left">
+                        <a [routerLink]="['/folder']"><i class="fas fa-arrow-circle-left" style="font-size: 30px;"></i></a></div>
                     <div class="mb-3">
                         <h1><b>To do list ({{numberTasks}})</b></h1>
                     </div>
                     <div class="m-auto text-center">
                         <form (ngSubmit)="addTask(form)" #form="ngForm" class="text-center">
-                            <div class="input-group mb-3 col-sm-12 col-6 cold-md-6 col-lg-6 col-xl-6 m-auto text-center">
+                            <div class="input-group mb-3 col-sm-12 col-12 cold-md-6 col-lg-6 col-xl-6 m-auto text-center">
                                 <input type="text" class="form-control input" placeholder="Add task" aria-label="task" aria-describedby="basic-addon1" autocomplete="off" name="description" required ngModel>
                                 <button type="submit" class="btn btn-primary ml-3"><i class="fas fa-plus"></i></button>
                             </div>

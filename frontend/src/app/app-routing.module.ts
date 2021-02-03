@@ -5,6 +5,7 @@ import { LoginComponent } from './views/login/login.component';
 import { TaskComponent } from './views/task/task.component';
 import { UnLoginGuard } from './guards/unlogin.guard';
 import { LoginGuard } from './guards/login.guard';
+import { FolderComponent } from './views/folder/folder.component';
 
 
 const routes: Routes = [
@@ -25,8 +26,13 @@ const routes: Routes = [
     canActivate: [UnLoginGuard],
   },
   {
-    path: "task",
+    path: "task/:id",
     component: TaskComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: "folder",
+    component: FolderComponent,
     canActivate: [LoginGuard],
   },
 ];

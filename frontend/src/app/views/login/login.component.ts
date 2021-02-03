@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
         if (data.verified == true) {
           this.showError = false;
           localStorage.setItem("token", data.token);
-          this.router.navigate(["task"]);
+          this.router.navigate(["folder"]);
         } else {
           this.showError = true;
         }
