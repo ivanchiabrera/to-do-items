@@ -20,9 +20,9 @@
                     <div class="m-auto text-center">
                         <div *ngFor="let folder of folders;index as i">
                             <div class="shadow m-2">
-                                <i class="fas fa-trash-alt mr-2 cursorPointer" style="color:red" (click)="deleteFolder(folder,i)"></i>
                                 <span style="font-size: 20px;"><b>{{folder.description | uppercase }}</b></span>
                                 <a [routerLink]="['/task', folder._id]"><i class="fas fa-arrow-alt-circle-right ml-2 cursorPointer" ></i></a>
+                                <i class="fas fa-trash-alt ml-2 cursorPointer" style="color:red" (click)="deleteFolder(folder,i)"></i>
                             </div>
                         </div>
                     </div>
