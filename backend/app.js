@@ -21,6 +21,7 @@ app.use(bodyParser.json());
 // Import routes
 var userRoutes = require('./routes/user');
 var taskRoutes = require('./routes/task');
+var folderRoutes = require('./routes/folder');
 
 //Connection bd
 mongoose.connection.openUri(process.env.URL_MONGO, { useNewUrlParser: true }, (err, res) => {
@@ -35,6 +36,7 @@ app.use(express.static(__dirname + '/dist'));
 // routes
 app.use('/api/user', userRoutes);
 app.use('/api/task', taskRoutes);
+app.use('/api/folder', folderRoutes);
 
 //
 app.get('/*', function(req, res) {
