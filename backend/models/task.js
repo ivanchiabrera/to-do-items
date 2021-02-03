@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var taskSchema = new Schema({
     description: { type: String },
     done: { type: Boolean },
-    user_id: { type: Schema.Types.ObjectId, ref: 'User' }
+    folder_id: { type: Schema.Types.ObjectId, ref: 'Folder' }
 }, { collection: 'task' });
 
 module.exports = mongoose.model('Task', taskSchema);
