@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var Task = require('../models/task');
+var Folder = require('../models/folder');
 var mdAutentificacion = require('../middlewares/authentication');
 
 
@@ -100,10 +101,24 @@ app.get('/all/:id', mdAutentificacion.verifyToken, (req, res, next) => {
                     })
                 }
 
-                res.status(200).json({
-                    tasks: tasks,
-                    total: tasks.length
-                });
+                Folder.findById(idFolder)
+                    .exec(
+                        (err, folder) => {
+                            if (err) {
+                                return res.status(500).json({
+                                    mensaje: 'Error',
+                                    erros: err
+                                })
+                            }
+
+                            res.status(200).json({
+                                tasks: tasks,
+                                total: tasks.length,
+                                folder: folder
+                            });
+                        }
+                    )
+
             })
 });
 

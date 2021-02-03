@@ -9,7 +9,7 @@
                     <div class="float-left">
                         <a [routerLink]="['/folder']"><i class="fas fa-arrow-circle-left" style="font-size: 30px;"></i></a></div>
                     <div class="mb-3">
-                        <h1><b>To do list ({{numberTasks}})</b></h1>
+                        <h2><b>{{nameFolder}} ({{numberTasks}})</b></h2>
                     </div>
                     <div class="m-auto text-center">
                         <form (ngSubmit)="addTask(form)" #form="ngForm" class="text-center">
@@ -22,11 +22,11 @@
                     <div class="m-auto text-center">
                         <div *ngFor="let task of tasks;index as i">
                             <div class="shadow m-2">
-                                <i class="fas fa-pen mr-2 cursorPointer" style="color:blue" (click)="openModal(modalEdit,task,i)"></i>
-                                <i class="fas fa-trash-alt mr-2 cursorPointer" style="color:red" (click)="delete(task,i)"></i>
                                 <span style="font-size: 20px;" [ngClass]="returnClass(task.done)"><b>{{task.description | uppercase }}</b></span>
                                 <i *ngIf="!task.done" class="fas fa-check ml-2 cursorPointer" style="color:green" (click)="check(task,i)"></i>
                                 <i *ngIf="task.done" class="fas fa-undo-alt ml-2 cursorPointer" style="color:yellow" (click)="check(task,i)"></i>
+                                <i class="fas fa-pen cursorPointer ml-2" style="color:blue" (click)="openModal(modalEdit,task,i)"></i>
+                                <i class="fas fa-trash-alt cursorPointer ml-2" style="color:red" (click)="delete(task,i)"></i>
                             </div>
                         </div>
                     </div>
