@@ -1,6 +1,3 @@
-# Application in production
-https://to-do-list-ensolvers.herokuapp.com/
-
 Using HerokuApp and MongoDB Atlas.
 
 ---
